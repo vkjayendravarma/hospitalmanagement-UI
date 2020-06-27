@@ -1,0 +1,36 @@
+@import '../../../globalStyles/fonts';
+.company {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    .loginform{
+        width: 80%;
+        input{
+            width: 100%;
+        }
+    }    
+}
+
+.btnSubmit{
+    float: right;
+}
+
+.companyTitle{
+    font-family: 'montserratBold';
+    font-size: 72px;
+    line-height: 1em;
+}
+.companySubtitle{
+    font-family: 'montserratRegular';
+    font-size: 42px;
+    line-height: 1em;
+}
