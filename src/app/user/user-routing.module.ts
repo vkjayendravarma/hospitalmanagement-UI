@@ -4,6 +4,7 @@ import { FrontdeskComponent } from './frontdesk/frontdesk.component';
 import { LabComponent } from './lab/lab.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { AdminComponent } from './admin/admin.component';
+import { NewComponent } from './frontdesk/new/new.component';
 
 const routes: Routes=[
   {
@@ -13,7 +14,11 @@ const routes: Routes=[
   },
   {
     path: 'frontdesk',
-    component: FrontdeskComponent
+    component: FrontdeskComponent,    
+  },
+  {
+    path: 'frontdesk/new',
+    component: NewComponent
   },
   {
     path: 'lab',

@@ -1,1 +1,42 @@
-<p>frontdesk works!</p>
+<div class="container">
+    <section class="header">
+        <h1 class="titlePrimary displayInline">All Patients</h1>
+        <button [routerLink]="['/user/frontdesk/new']" mat-raised-button color="primary" class="btnPrimary btnSubmit floatRight">New +</button>
+
+    </section>
+
+    <section class="patientsTable">
+        <mat-form-field >
+            <mat-label>Search IDs</mat-label>
+            <input type="text" matInput #item>
+        </mat-form-field>
+
+        <table class="table ">
+            <thead class="table">
+                <tr class="tableRow">
+                    <th>col 1</th>
+                    <th> col 2</th>
+                    <th>col 3</th>
+                    <th> col 4</th>
+                    <th> col 4</th>
+                    <th> col 4</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of data">
+                <tr class="tableRow">
+                    <td> {{item.position}}</td>
+                    <td> {{item.name}} </td>
+                    <td> {{item.weight}} </td>
+                    <td> {{item.symbol}} </td>
+                    <td> {{item.symbol}} </td>
+                    <td> {{item.symbol}} </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </section>
+
+    <router-outlet></router-outlet>
+</div>

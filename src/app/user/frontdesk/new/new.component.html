@@ -1,0 +1,72 @@
+<div class="container">
+    <section class="header">
+        <h1 class="titlePrimary displayInline">All Patients</h1>
+    </section>
+
+    <div class="newPatient">
+        <form class="newPatient" novalidate>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>SSN ID</mat-label>
+                        <input matInput type="text" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>Age</mat-label>
+                        <input matInput type="number" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field>
+                        <mat-label>Date of addmission</mat-label>
+                        <input matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Select room</mat-label>
+                        <mat-select [(value)]="selected">
+                          <mat-option>None</mat-option>
+                          <mat-option value="general">General</mat-option>
+                          <mat-option value="semi">Semi shared</mat-option>
+                          <mat-option value="single">Single Room</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+
+                <div class="col-12">
+                    <mat-form-field class="formControl">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput placeholder="address..." rows="6"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                    <mat-form-field class="formControl ">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" class="formControl" rows="6">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>State</mat-label>
+                        <input matInput type="text" class="formControl">
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit">Create</button>
+        </form>
+    </div>
+</div>

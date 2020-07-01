@@ -32,3 +32,28 @@ body {
   width: 100px;
   outline: none !important;
 }
+
+.displayInline{
+  display: inline;
+}
+
+.floatRight{
+  float: right;
+}
+
+.header{
+  margin: 2em 4em 1em 1em;
+}
+
+.table{
+  width: 100%;
+  background-color: #ffffff;
+  margin: 0.3em;
+
+  .tableRow{
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+}
+
+
