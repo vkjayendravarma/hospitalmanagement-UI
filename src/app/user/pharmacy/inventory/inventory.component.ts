@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { NewItemComponent } from './new-item/new-item.component';
+
 
 @Component({
   selector: 'app-inventory',
@@ -16,9 +19,13 @@ export class InventoryComponent implements OnInit {
     {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
   ];
 
-  constructor() { }
+  constructor(private inventoryDialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+  newitem(){
+    const dialogConfig = new MatDialogConfig()
+    this.inventoryDialog.open(NewItemComponent, dialogConfig)
   }
 
 }

@@ -1,1 +1,45 @@
-<p>admin works!</p>
+<div class="container">
+    <section class="header">
+        <h1 class="titlePrimary displayInline">New User</h1>        
+    </section>
+    <section class="addNewUser">
+        <form class="userForm" novalidate>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>Email ID</mat-label>
+                        <input matInput type="email" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="formControl">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field >
+                        <mat-label>Select Access Level</mat-label>
+                        <mat-select [(value)]="selected">
+                          <mat-option>None</mat-option>
+                          <mat-option value="1">Admin</mat-option>
+                          <mat-option value="2">Receptionist</mat-option>
+                          <mat-option value="3">Pharmacy</mat-option>
+                          <mat-option value="4">Lab Incharge</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit ">Add
+                        User</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

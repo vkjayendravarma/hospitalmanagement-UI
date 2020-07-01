@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lab-inventory',
@@ -21,5 +22,6 @@ export class LabInventoryComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }

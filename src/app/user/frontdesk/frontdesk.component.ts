@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MatFormFieldControl} from '@angular/material/form-field';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ViewPatientComponent } from './view-patient/view-patient.component';
+import { DeletePatientComponent } from './delete-patient/delete-patient.component';
+
 
 
 @Component({
@@ -19,9 +23,29 @@ export class FrontdeskComponent implements OnInit {
     {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
   ];
 
+  constructor(private patientDialog: MatDialog){
+
+  }
+
 
   ngOnInit() {
     
+  }
+
+  viewPatient(){
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.data = "some data";
+    this.patientDialog.open(ViewPatientComponent, dialogConfig)
+  } 
+  deletePatient(id, name){
+    const dialogConfig = new MatDialogConfig()
+    console.log(name);
+    
+    dialogConfig.data = {
+      'id': id,
+      'name': name
+    };
+    this.patientDialog.open(DeletePatientComponent, dialogConfig)
   }
 
 }

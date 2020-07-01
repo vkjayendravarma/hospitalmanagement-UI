@@ -19,6 +19,11 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InventoryComponent } from './pharmacy/inventory/inventory.component';
 import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.component';
+import { ViewPatientComponent } from './frontdesk/view-patient/view-patient.component';
+import { DeletePatientComponent } from './frontdesk/delete-patient/delete-patient.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NewItemComponent } from './pharmacy/inventory/new-item/new-item.component';
+import { RecordsComponent } from './pharmacy/records/records.component';
 
 
 
@@ -26,7 +31,7 @@ import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.compone
 
 
 @NgModule({
-  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent],
+  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent, ViewPatientComponent, DeletePatientComponent, NewItemComponent, RecordsComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -39,7 +44,9 @@ import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.compone
     MatSelectModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule    
-  ]
+    ReactiveFormsModule,
+    MatDialogModule    
+  ],
+  entryComponents: [ViewPatientComponent, DeletePatientComponent, NewItemComponent]
 })
 export class UserModule { }

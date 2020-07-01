@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Add Item</h1>
+<div mat-dialog-content>
+    <form class="newPatient" novalidate autocomplete="off">
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field class="formControl">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" class="formControl">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field class="formControl">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput type="text" class="formControl">
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field class="formControl">
+                    <mat-label>Unit Price</mat-label>
+                    <input matInput type="number" class="formControl">
+                </mat-form-field>
+            </div>           
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial>No</button>
+    <button mat-button >Yes</button>
+</div>
