@@ -15,13 +15,18 @@ import { NewComponent } from './frontdesk/new/new.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InventoryComponent } from './pharmacy/inventory/inventory.component';
+import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.component';
+
 
 
 
 
 
 @NgModule({
-  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent],
+  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -31,8 +36,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatSelectModule
-    
+    MatSelectModule,
+    MatAutocompleteModule,
+    FormsModule,
+    ReactiveFormsModule    
   ]
 })
 export class UserModule { }

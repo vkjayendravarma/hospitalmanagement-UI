@@ -29,7 +29,7 @@ body {
 }
 
 .btnPrimary {
-  width: 100px;
+  min-width: 100px;
   outline: none !important;
 }
 
@@ -54,6 +54,12 @@ body {
     padding-top: 1em;
     padding-bottom: 1em;
   }
+}
+
+.invoice{
+  background-color: #ffffff;
+  padding: 1.5em 2em;
+  margin-top: 2em;
 }
 
 

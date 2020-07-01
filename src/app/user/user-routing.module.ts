@@ -5,6 +5,8 @@ import { LabComponent } from './lab/lab.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { AdminComponent } from './admin/admin.component';
 import { NewComponent } from './frontdesk/new/new.component';
+import { InventoryComponent } from './pharmacy/inventory/inventory.component';
+import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.component';
 
 const routes: Routes=[
   {
@@ -23,10 +25,16 @@ const routes: Routes=[
   {
     path: 'lab',
     component: LabComponent
+  },{
+    path: 'lab/inventory',
+    component: LabInventoryComponent
   },
   {
     path: 'pharmacy',
     component: PharmacyComponent
+  },{
+    path: 'pharmacy/inventory',
+    component: InventoryComponent
   },
   {
     path: 'admin',

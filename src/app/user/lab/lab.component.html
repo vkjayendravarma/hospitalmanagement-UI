@@ -1,1 +1,56 @@
-<p>lab works!</p>
+<div class="container">
+    <section class="header">
+        <h1 class="titlePrimary displayInline">Invioce Dashboard</h1>
+        <button [routerLink]="['/user/lab/inventory']" mat-raised-button color="primary"
+            class="btnPrimary btnSubmit floatRight">Inventory +</button>
+    </section>
+
+    <section class="invoice">
+        <form class="invoiceForm" novalidate>
+            <div class="row">
+                <div class="col-8">
+                    <mat-form-field class="formControl">
+                        <mat-label>Patient ID</mat-label>
+                        <input matInput type="text" class="formControl">
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit ">Get
+                        Data</button>
+
+                </div>
+            </div>
+        </form>
+   
+        <div class="patientData">
+            <h2 class="titleSecondary">Patient Details</h2>
+            <div class="row">
+                <div class="col-6">Patient ID: </div>
+                <div class="col-6">Name:</div>
+                <div class="col-6">Age</div>
+                <div class="col-6">Address</div>
+            </div>
+            <button mat-raised-button type="submit"  class="btnPrimary btnSubmit">View Record</button>
+            <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit">New Invoice</button>
+        </div>
+        <div class="newMedecin">
+            <form class="example-form">
+                <div class="row">
+                    <div class="col-8">
+                        <mat-form-field >
+                            <input type="text" placeholder="Medicine Name" aria-label="Number" matInput [formControl]="myControl"
+                                [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </section>
+
+</div>
