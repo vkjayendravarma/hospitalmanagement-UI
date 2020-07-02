@@ -7,14 +7,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./delete-patient.component.scss'],
 })
 export class DeletePatientComponent implements OnInit {
+ 
   constructor(
     private dialogRef: MatDialogRef<DeletePatientComponent>,
-    @Inject(MAT_DIALOG_DATA) public patient: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   onNoClick(): void {
-    this.patient = "Closing"
+    
   }
 }

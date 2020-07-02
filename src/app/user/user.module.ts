@@ -24,6 +24,9 @@ import { DeletePatientComponent } from './frontdesk/delete-patient/delete-patien
 import { MatDialogModule } from '@angular/material/dialog';
 import { NewItemComponent } from './pharmacy/inventory/new-item/new-item.component';
 import { RecordsComponent } from './pharmacy/records/records.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 
@@ -45,7 +48,8 @@ import { RecordsComponent } from './pharmacy/records/records.component';
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule    
+    MatDialogModule,
+    HttpClientModule    
   ],
   entryComponents: [ViewPatientComponent, DeletePatientComponent, NewItemComponent]
 })
