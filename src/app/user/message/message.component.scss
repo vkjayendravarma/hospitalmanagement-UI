@@ -1,0 +1,10 @@
+.message{
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+    background-color: #000000;
+    .messageBody{
+        line-height: 15px;
+        color: #ffffff;
+    }
+}

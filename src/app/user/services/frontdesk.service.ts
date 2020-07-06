@@ -12,6 +12,23 @@ export class FrontdeskService {
   constructor(private http: HttpClient) { }
 
   newPatient(data):Observable<any>{
-    return this.http.post(environment.api + '/reception/patients/new', data)
+    return this.http.post(`${environment.api}/reception/patients/new`, data)
+  }
+  allPatients():Observable <any>{
+    return this.http.get(`${environment.api}/reception/patients`)
+  }
+  patientInfo(patientID): Observable<any>{
+    return this.http.get(`${environment.api}/reception/patients/individual/${patientID}`)
+  }
+
+  updatePatient(patientId, data): Observable <any>{
+    return this.http.post(`${environment.api}/reception/patients/individual/${patientId}`, data)
+  }
+  
+  dischargePatient(patientId): Observable <any>{
+    return this.http.put(`${environment.api}/reception/patients/individual/${patientId}`, null)
+  }
+  deletePatient(patientId): Observable <any> {
+    return this.http.delete(`${environment.api}/reception/patients/individual/${patientId}`)
   }
 }

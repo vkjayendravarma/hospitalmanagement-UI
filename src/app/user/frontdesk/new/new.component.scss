@@ -1,6 +1,13 @@
 .newPatient{
     margin-top: 2em;
-    padding: 0.7em 2em;
-    margin-bottom: 2em;
+    padding: 3.5em 4em;
     background-color: #ffffff;
+    position: relative;
+    height: 70vh;
+    .spinner{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
 }

@@ -1,0 +1,17 @@
+.pharmacy{
+    margin-top: 3em;
+
+    .invoices{
+        width: 100%;
+        display: block;
+        position: relative;
+        .total{
+            position: absolute;
+            right: 10%;
+        }
+    }
+}
+
+.invoiceTables{
+    margin-top: 2em;
+}

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import {  MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LabService } from '../../services/lab.service';
+import { NewTestComponent } from './new-test/new-test.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-lab-inventory',
@@ -8,20 +11,47 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 })
 export class LabInventoryComponent implements OnInit {
 
-  data = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  ];
+  data 
+  filter
 
 
-  constructor() { }
+  constructor(private lab: LabService, private newTestModel: MatDialog, private message:MatSnackBar) { }
 
   ngOnInit(): void {
+    this.getInventory()
   }
 
+  getInventory(){
+    this.lab.getInventory().subscribe(res => {
+      this.data = res.res
+      this.filter = this.data
+    })
+    
+  }
+
+  searchInventory(keyWord){
+    this.filter = this.data
+    keyWord = keyWord.toLowerCase()
+    if(keyWord){
+      this.filter = this.data.filter(element => {
+        let name = element.name
+        name = name.toLowerCase()
+        if(name.indexOf(keyWord) !== -1){
+          return element
+        }
+      })
+    }
+  }
+
+  newTest(){
+    let modalRef = this.newTestModel.open(NewTestComponent)
+    modalRef.afterClosed().subscribe(() =>{
+      this.getInventory()
+      this.message.open("New test in inventory", "Close", {
+        duration: 2000,
+      });
+      
+    })
+  }
 
 }

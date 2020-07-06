@@ -1,46 +1,62 @@
 <div class="container">
     <section class="header">
         <h1 class="titlePrimary displayInline">All Patients</h1>
-        <button [routerLink]="['/user/frontdesk/new']" mat-raised-button color="primary" class="btnPrimary btnSubmit floatRight">New +</button>
-
+        <button [routerLink]="['/user/frontdesk/new']" mat-raised-button color="primary"
+            class="btnPrimary btnSubmit floatRight">New +</button>
+        
     </section>
 
     <section class="patientsTable">
-        <mat-form-field >
-            <mat-label>Search IDs</mat-label>
-            <input type="text" matInput #item>
-            
-        </mat-form-field>
-
-        <button (click)="viewPatient()" mat-raised-button color="primary" class="btnPrimary btnSubmit floatRight">New +</button>
-
-        <button (click)="deletePatient(153, 'name')" mat-raised-button color="primary" class="btnPrimary btnSubmit floatRight">del +</button>
-
+        <form autocomplete="off">
+            <mat-form-field>
+                <mat-label>Search </mat-label>
+                <input type="text" matInput #searchText (keyup)='filter(searchText.value)' >                
+            </mat-form-field>
+            <mat-spinner diameter="45" *ngIf="loading" style="float: right;margin-right: 3em;" ></mat-spinner> 
+        </form>  
+              
         <table class="table ">
             <thead class="table">
                 <tr class="tableRow">
-                    <th>col 1</th>
-                    <th> col 2</th>
-                    <th>col 3</th>
-                    <th> col 4</th>
-                    <th> col 4</th>
-                    <th> col 4</th>
+                    <th>SL No</th>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th> Ward</th>
+                    <th>View</th>
+                    <th> Edit </th>
+                    <th> Delete </th>
+                    <th> Discharge </th>
                 </tr>
             </thead>
-            <tbody *ngFor="let item of data">
+            <tbody *ngFor="let item of filterData, index as i">
                 <tr class="tableRow">
-                    <td> {{item.position}}</td>
+                    <td> {{i + 1}}</td>
+                    <td> {{item.patientId}} </td>
                     <td> {{item.name}} </td>
-                    <td> {{item.weight}} </td>
-                    <td> {{item.symbol}} </td>
-                    <td> {{item.symbol}} </td>
-                    <td> {{item.symbol}} </td>
+                    <td> {{item.roomType}} </td>
+                    <td> <button (click)="viewPatient(item.patientId)" mat-icon-button
+                            class="btnPrimary btnSubmit btnIcoView" >
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+                    </td>
+                    <td> <button [routerLink]="['/user/frontdesk/edit/', item.patientId]" mat-icon-button
+                            class="btnPrimary btnSubmit btnIcoView ">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </td>
+                        <td> <button (click)="detelePatient(item.patientId, item.name)" mat-icon-button color="warn"
+                                class="btnPrimary btnSubmit btnIco">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                        <td> <button *ngIf="item.status !== 'Discharged'" (click)="dischargePatient(item.patientId)" mat-icon-button
+                                class="btnPrimary btnSubmit btnIcoView">
+                                <mat-icon>payment</mat-icon>
+                            </button>
+                        </td>
                 </tr>
             </tbody>
         </table>
-
-
-
     </section>
 
     <router-outlet></router-outlet>

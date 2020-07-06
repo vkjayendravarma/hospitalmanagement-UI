@@ -25,16 +25,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NewItemComponent } from './pharmacy/inventory/new-item/new-item.component';
 import { RecordsComponent } from './pharmacy/records/records.component';
 import { HttpClientModule } from '@angular/common/http';
-
-
-
-
-
-
+import {MatIconModule} from '@angular/material/icon';
+import { NewTestComponent } from './lab/lab-inventory/new-test/new-test.component';
+import { MessageComponent } from './message/message.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { EditpatientComponent } from './frontdesk/editpatient/editpatient.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
-  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent, ViewPatientComponent, DeletePatientComponent, NewItemComponent, RecordsComponent],
+  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent, ViewPatientComponent, DeletePatientComponent, NewItemComponent, RecordsComponent, NewTestComponent, MessageComponent, EditpatientComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -49,8 +49,11 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    HttpClientModule    
+    HttpClientModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
-  entryComponents: [ViewPatientComponent, DeletePatientComponent, NewItemComponent]
+  entryComponents: [ViewPatientComponent, DeletePatientComponent, NewItemComponent, NewTestComponent]
 })
 export class UserModule { }

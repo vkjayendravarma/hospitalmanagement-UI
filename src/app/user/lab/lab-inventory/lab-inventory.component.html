@@ -1,35 +1,29 @@
 <div class="container">
     <section class="header">
         <h1 class="titlePrimary displayInline">Inventory Dashboard</h1>
-        <button  mat-raised-button color="primary"
+        <button (click)="newTest()"  mat-raised-button color="primary"
             class="btnPrimary btnSubmit floatRight">Inventory +</button>
     </section>
 
     <div class="inverntory">
-        <mat-form-field >
-            <mat-label>Search IDs</mat-label>
-            <input type="text" matInput #item>
+        <mat-form-field style="width: 80%;">
+            <mat-label>Search Test</mat-label>
+            <input type="text" matInput #searchKeyWord (keyup)="searchInventory(searchKeyWord.value)" >
         </mat-form-field>
 
         <table class="table ">
             <thead class="table">
                 <tr class="tableRow">
-                    <th>col 1</th>
-                    <th> col 2</th>
-                    <th>col 3</th>
-                    <th> col 4</th>
-                    <th> col 4</th>
-                    <th> col 4</th>
+                    <th>S No</th>
+                    <th>Test Name</th>
+                    <th>Price</th>                   
                 </tr>
             </thead>
-            <tbody *ngFor="let item of data">
+            <tbody *ngFor="let item of filter, index as i">
                 <tr class="tableRow">
-                    <td> {{item.position}}</td>
+                    <td> {{i + 1}}</td>
                     <td> {{item.name}} </td>
-                    <td> {{item.weight}} </td>
-                    <td> {{item.symbol}} </td>
-                    <td> {{item.symbol}} </td>
-                    <td> {{item.symbol}} </td>
+                    <td> {{item.price}} </td>                    
                 </tr>
             </tbody>
         </table>

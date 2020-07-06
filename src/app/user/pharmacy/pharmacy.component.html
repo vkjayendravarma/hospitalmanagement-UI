@@ -2,55 +2,106 @@
     <section class="header">
         <h1 class="titlePrimary displayInline">Invioce Dashboard</h1>
         <button [routerLink]="['/user/pharmacy/inventory']" mat-raised-button color="primary"
-            class="btnPrimary btnSubmit floatRight">Inventory +</button>
+            class="btnPrimary btnSubmit floatRight">Inventory</button>
     </section>
 
     <section class="invoice">
-        <form class="invoiceForm" novalidate>
+        <form class="invoiceForm" novalidate (submit)="patientInfo(patID.value)">
             <div class="row">
                 <div class="col-8">
                     <mat-form-field class="formControl">
                         <mat-label>Patient ID</mat-label>
-                        <input matInput type="text" class="formControl">
+                        <input matInput type="number" class="formControl" #patID>
                     </mat-form-field>
                 </div>
                 <div class="col-2">
                     <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit ">Get
-                        Data</button>
-
+                        Data</button> <mat-spinner diameter="30" *ngIf="patientDataLoading" class="spinner"></mat-spinner> 
                 </div>
             </div>
         </form>
-   
-        <div class="patientData ">
+
+        <div class="patientData" *ngIf="patData">
             <h2 class="titleSecondary">Patient Details</h2>
             <div class="row">
-                <div class="col-6">Patient ID: </div>
-                <div class="col-6">Name:</div>
-                <div class="col-6">Age</div>
-                <div class="col-6">Address</div>
+                <div class="col-6">SSN ID: {{patData.ssnid}}</div>
+                <div class="col-6">Name: {{patData.name}} </div>
+                <div class="col-6">Age {{patData.age}} </div>
+                <div class="col-6">Address {{patData.address}} </div>
             </div>
-            <button mat-raised-button (click)='viewPatient()'  class="btnPrimary btnSubmit">View Record</button>
-            <button mat-raised-button color="primary" class="btnPrimary btnSubmit">New Invoice</button>
-        </div>
-        <div class="newMedecin">
-            <form class="example-form">
-                <div class="row">
-                    <div class="col-8">
-                        <mat-form-field >
-                            <input type="text" placeholder="Medicine Name" aria-label="Number" matInput [formControl]="myControl"
-                                [matAutocomplete]="auto">
-                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                    {{option}}
-                                </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
+            <button mat-raised-button (click)='viewPatient()' class="btnPrimary btnSubmit">View Record</button>
+            <div class="newInvoice">
+                <h2>New Invoice</h2>
+                <form>
+                    <div class="row">
+                        <div class="col-8">
+                            <form [formGroup]="invoiceItemForm" (submit)='addItem(invoiceItemForm.value)'>
+                                <div class="row">
+                                    <div class="col-7">                                        
+                                        <mat-form-field style="width: 100%;">
+                                            <input type="text" placeholder="Medicine Name" aria-label="Number" matInput
+                                                formControlName="name" [matAutocomplete]="auto" (keyup)='filterOptions()' (change)="checkAvail()" >    
+                                            <mat-autocomplete  #auto="matAutocomplete">
+                                                <mat-option *ngFor="let option of filteredOptions " [value]="option.option" (click)="select(option.value)" >
+                                                    {{option.option}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                            <mat-error *ngIf="!invoiceItemForm.controls['name'].valid"> Required </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field class="formControl">
+                                            <mat-label>Quantity</mat-label>
+                                            <input matInput type="number" class="formControl" formControlName="quantity"
+                                                required >
+                                            <mat-error *ngIf="!invoiceItemForm.controls['quantity'].valid"> Available {{max}} </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-1">
+                                        <button mat-raised-button color='primary' type="submit" class="btnPrimary btnSubmit">Add
+                                            item</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
                     </div>
+                </form>
+                <div class="itemList">
+                    <table class="table ">
+                        <thead class="table">
+                            <tr class="tableRow">
+                                <th>S. No</th>
+                                <th> Name </th>
+                                <th> Quantity </th>
+                                <th> Unit Price </th>
+                                <th> Price </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of displayItems, index as i">
+                            <tr class="tableRow">
+                                <td> {{i + 1}}</td>
+                                <td> {{item.name}} </td>
+                                <td> {{item.quantity}} </td>
+                                <td> {{item.unitPrice}} </td> 
+                                <td> {{item.price}} </td>                               
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="confirmInvoice">
+                    <button mat-raised-button color='primary' (click)='genInvoice(patID.value)'
+                        class="btnPrimary btnSubmit">Confirm</button>
+                    <mat-spinner diameter="30" class="spinner"></mat-spinner> 
+                    
 
                 </div>
-            </form>
+
+            </div>
         </div>
+
     </section>
 
 </div>

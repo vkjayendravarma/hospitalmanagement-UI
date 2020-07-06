@@ -1,35 +1,42 @@
 <div class="container">
     <section class="header">
         <h1 class="titlePrimary displayInline">Inventory Dashboard</h1>
-        <button (click)="newitem()" mat-raised-button color="primary"
-            class="btnPrimary btnSubmit floatRight">Inventory +</button>
+        <button (click)="newitem()" mat-raised-button color="primary" class="btnPrimary btnSubmit floatRight">Inventory
+            +</button>
     </section>
 
     <div class="inverntory">
-        <mat-form-field >
-            <mat-label>Search IDs</mat-label>
-            <input type="text" matInput #item>
+        <mat-form-field style="width: 80%;">
+            <mat-label>Search Medicine</mat-label>
+            <input type="text" matInput #item (keyup)="filterMed(item.value)">
         </mat-form-field>
 
         <table class="table ">
-            <thead class="table">
+            <thead class="table"> 
                 <tr class="tableRow">
-                    <th>col 1</th>
-                    <th> col 2</th>
-                    <th>col 3</th>
-                    <th> col 4</th>
-                    <th> col 4</th>
-                    <th> col 4</th>
+                    <th>S. No</th>
+                    <th> Name </th>
+                    <th> SKU </th>
+                    <th> Unit price</th>
+                    <th>Add to stock</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let item of data">
+            <tbody *ngFor="let item of filterData, index as i">
                 <tr class="tableRow">
-                    <td> {{item.position}}</td>
+                    <td> {{i + 1}}</td>
                     <td> {{item.name}} </td>
-                    <td> {{item.weight}} </td>
-                    <td> {{item.symbol}} </td>
-                    <td> {{item.symbol}} </td>
-                    <td> {{item.symbol}} </td>
+                    <td> {{item.quantity}} </td>
+                    <td> {{item.price}} </td>
+                    <td>
+                        <form action="" [formGroup]="sku" (submit)='addSku(send.value, item._id.$oid)'>
+                            <mat-form-field style="width: 20%;">
+                                <mat-label>Qty</mat-label>
+                                <input type="number" matInput formControlName="quantity" #send>
+                            </mat-form-field>
+                            <button type="submit" mat-flat-button color='primary'
+                            class="btnPrimary btnSubmit " style="margin-left: 20px;">Add to sku</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

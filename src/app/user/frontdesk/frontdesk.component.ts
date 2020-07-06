@@ -1,52 +1,100 @@
 import { Component, OnInit } from '@angular/core';
-import {MatFormFieldControl} from '@angular/material/form-field';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewPatientComponent } from './view-patient/view-patient.component';
 import { DeletePatientComponent } from './delete-patient/delete-patient.component';
-
-
+import { FrontdeskService } from '../services/frontdesk.service';
 
 @Component({
   selector: 'app-frontdesk',
   templateUrl: './frontdesk.component.html',
-  styleUrls: ['./frontdesk.component.scss']
+  styleUrls: ['./frontdesk.component.scss'],
 })
 export class FrontdeskComponent implements OnInit {
- 
+  patientsData;
+  filterData;
+  searchText;
+  loading
 
-  data = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  ];
-
-  constructor(private patientDialog: MatDialog){
-
-  }
-
+  constructor(
+    private patientDialog: MatDialog,
+    private frontdeskService: FrontdeskService
+  ) {}
 
   ngOnInit() {
-    
+    this.allPatients();
   }
 
-  viewPatient(){
-    const dialogConfig = new MatDialogConfig()
-    dialogConfig.data = "some data";
-    this.patientDialog.open(ViewPatientComponent, dialogConfig)
-  } 
-  deletePatient(id, name){
-    const dialogConfig = new MatDialogConfig()
-    console.log(name);
-    
+  allPatients() {
+    this.loading =true
+    this.frontdeskService.allPatients().subscribe((res) => {
+      console.log(res);
+      this.loading=false
+      this.patientsData = res.res;
+      this.filterData = this.patientsData;
+    });
+  }
+
+  filter(keyWord) {
+    this.filterData = this.patientsData
+    if (keyWord) {
+      this.filterData = this.patientsData.filter((element) => {
+        let source = element.patientId
+        source = source.toString()
+        keyWord = keyWord.toString()
+        if (source.indexOf(keyWord) !== -1) {
+          return element
+        }
+      });      
+    }
+    console.log(this.filterData);
+  }
+
+  viewPatient(patientId) {
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      'id': id,
-      'name': name
+      id: patientId,
+      view: true,
+      user: 2
     };
-    this.patientDialog.open(DeletePatientComponent, dialogConfig)
+    this.patientDialog.open(ViewPatientComponent, dialogConfig);
   }
 
-}
+  editPatient(patientId){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      id: patientId,
+      edit: true,
+      user: 2
+    };
+    this.patientDialog.open(ViewPatientComponent, dialogConfig);
+  }
+  dischargePatient(patientId){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      id: patientId,
+      dischage: true,
+      user: 2
+    };
+    let dialog =  this.patientDialog.open(ViewPatientComponent, dialogConfig);
+    dialog.afterClosed().subscribe(() => this.allPatients())
+  }
+  detelePatient(id, name) {
+    let confirm = window.confirm(`Do you want to delete Patient 
+    Name: ${name}
+    id: ${id}`)
+    const dialogConfig = new MatDialogConfig();
+    console.log(name);
 
+    if(confirm){
+      this.frontdeskService.deletePatient(id).subscribe(res =>{
+        if(res.success){
+          dialogConfig.data = "Patient deleted"
+          this.patientDialog.open(DeletePatientComponent, dialogConfig);
+          this.allPatients()
+        }
+      })
+    }
+
+    
+  }
+}

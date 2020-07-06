@@ -1,15 +1,17 @@
 <div class="container">
     <section class="header">
-        <h1 class="titlePrimary displayInline">New Patient</h1>
+        <h1 class="titlePrimary displayInline">Patient Details</h1>
     </section>
 
     <div class="newPatient">
-        <form class="newPatient" novalidate autocomplete="off" [formGroup]="newPatient" (ngSubmit)="onSubmit(newPatient.value)">
+        <mat-spinner diameter="45" *ngIf="loading" class="spinner" ></mat-spinner> 
+        <form class="newPatientForm" novalidate autocomplete="off" [formGroup]="newPatient"
+            (ngSubmit)="onSubmit(newPatient.value)" *ngIf="!loading">
             <div class="row">
                 <div class="col-6">
                     <mat-form-field class="formControl">
                         <mat-label>SSN ID</mat-label>
-                        <input matInput type="text" class="formControl" formControlName="ssnid" name="ssnid" required >
+                        <input matInput type="text" class="formControl" formControlName="ssnid" name="ssnid" required>
                         <mat-error *ngIf="!newPatient.controls['ssnid'].valid && newPatient.controls['ssnid'].touched">
                             Required
                         </mat-error>
@@ -18,7 +20,7 @@
                 <div class="col-6">
                     <mat-form-field class="formControl">
                         <mat-label>Name</mat-label>
-                        <input matInput type="text" class="formControl" formControlName="name" name="name" required >
+                        <input matInput type="text" class="formControl" formControlName="name" name="name" required>
                         <mat-error *ngIf="!newPatient.controls['name'].valid && newPatient.controls['name'].touched">
                             Required
                         </mat-error>
@@ -36,34 +38,39 @@
                 <div class="col-3">
                     <mat-form-field>
                         <mat-label>Date of addmission</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="dateOfJoining" name="dateOfJoining" required>
+                        <input matInput [matDatepicker]="picker" formControlName="dateOfJoining" name="dateOfJoining"
+                            required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="!newPatient.controls['dateOfJoining'].valid && newPatient.controls['dateOfJoining'].touched">
+                        <mat-error
+                            *ngIf="!newPatient.controls['dateOfJoining'].valid && newPatient.controls['dateOfJoining'].touched">
                             Required
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-3">
-                    <mat-form-field >
+                    <mat-form-field>
                         <mat-label>Select room</mat-label>
                         <mat-select formControlName="roomType" required>
-                          <mat-option>None</mat-option>
-                          <mat-option value="general">General</mat-option>
-                          <mat-option value="semi">Semi shared</mat-option>
-                          <mat-option value="single">Single Room</mat-option>
+                            <mat-option>None</mat-option>
+                            <mat-option value="general">General</mat-option>
+                            <mat-option value="semi">Semi shared</mat-option>
+                            <mat-option value="single">Single Room</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="!newPatient.controls['roomType'].valid && newPatient.controls['roomType'].touched">
+                        <mat-error
+                            *ngIf="!newPatient.controls['roomType'].valid && newPatient.controls['roomType'].touched">
                             Required
                         </mat-error>
-                      </mat-form-field>
+                    </mat-form-field>
                 </div>
 
                 <div class="col-12">
                     <mat-form-field class="formControl">
                         <mat-label>Address</mat-label>
-                        <textarea matInput placeholder="address..." rows="6" formControlName="address" name="address" required></textarea>
-                        <mat-error *ngIf="!newPatient.controls['address'].valid && newPatient.controls['address'].touched">
+                        <textarea matInput placeholder="address..." rows="6" formControlName="address" name="address"
+                            required></textarea>
+                        <mat-error
+                            *ngIf="!newPatient.controls['address'].valid && newPatient.controls['address'].touched">
                             Required
                         </mat-error>
                     </mat-form-field>
@@ -90,9 +97,17 @@
                 </div>
 
             </div>
-            <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit" [disabled]="!newPatient.valid">Create</button>
+            <div *ngIf="patientId; else createPatient">
+                <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit"
+                    [disabled]="!newPatient.valid">Update</button>
+            </div>
+
+            <ng-template #createPatient>
+                <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit"
+                    [disabled]="!newPatient.valid">Create</button>
+            </ng-template>
         </form>
 
-        
+
     </div>
 </div>

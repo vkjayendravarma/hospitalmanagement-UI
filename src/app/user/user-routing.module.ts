@@ -7,6 +7,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NewComponent } from './frontdesk/new/new.component';
 import { InventoryComponent } from './pharmacy/inventory/inventory.component';
 import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.component';
+import { EditpatientComponent } from './frontdesk/editpatient/editpatient.component';
 
 const routes: Routes=[
   {
@@ -21,6 +22,10 @@ const routes: Routes=[
   {
     path: 'frontdesk/new',
     component: NewComponent
+  },
+  {
+    path: 'frontdesk/edit/:patientId',
+    component: EditpatientComponent
   },
   {
     path: 'lab',
