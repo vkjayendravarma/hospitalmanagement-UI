@@ -38,8 +38,8 @@
                 <div class="col-3">
                     <mat-form-field>
                         <mat-label>Date of addmission</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="dateOfJoining" name="dateOfJoining"
-                            required>
+                        <input matInput [matDatepicker]="picker" type="text" formControlName="dateOfJoining" 
+                            required >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error

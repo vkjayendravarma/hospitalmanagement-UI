@@ -23,6 +23,9 @@ export class LabComponent implements OnInit {
   patientData = null
   max
 
+  patientDataLoading
+  invoiceLoading
+
   constructor(private labservice: LabService, private patientDialog: MatDialog, private formBuilder: FormBuilder, private message: MatSnackBar
 
     ){}
@@ -37,12 +40,17 @@ export class LabComponent implements OnInit {
 
 
   getPatientData(patientId){
+    this.patientDataLoading = true
     this.getInventory()
     this.labservice.getPatientData(patientId).subscribe(res => {
+      this.patientDataLoading = false
       if(res.success){
         this.patientData = res.res
         return
       }
+      this.message.open("Invalied Id", "Close", {
+        duration: 2000,
+      });
       this.patientData = null      
     })
   }
@@ -58,10 +66,11 @@ export class LabComponent implements OnInit {
   }
 
   genInvoice(patientID){
-    console.log(this.invoiceItems);   
-    
+    console.log(this.invoiceItems);    
     if(this.invoiceItems.length > 0){
+      this.invoiceLoading = true
       this.labservice.newInvoice(patientID, this.invoiceItems).subscribe(res=>{
+        this.invoiceLoading = false
         this.message.open("invoice generated", "Close", {
           duration: 2000,
         });

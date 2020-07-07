@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FormBuilder,  FormGroup,  Validators} from '@angular/forms';
+import {FormBuilder,  FormGroup,  Validators, FormControl} from '@angular/forms';
 import { FrontdeskService } from '../../services/frontdesk.service';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { DeletePatientComponent } from '../delete-patient/delete-patient.component';
 import { Router } from '@angular/router';
+
+
 
 
 @Component({
@@ -18,10 +20,13 @@ export class NewComponent implements OnInit {
   selected;
   newPatient: FormGroup;
   loading
+  dateOfJoining = null
 
   post: any = '';
 
   constructor(private formBuilder: FormBuilder, private frontDeskSerivice:FrontdeskService, private patientDialog: MatDialog, private router: Router) {}
+
+
 
   ngOnInit(): void {
     this.loading = true
@@ -31,7 +36,7 @@ export class NewComponent implements OnInit {
     let ssnid = null
     let name = null
     let age = null
-    let dateOfJoining = null
+    let dateOfJoining = new Date()
     let roomType = null
     let address = null
     let city = null
@@ -52,6 +57,7 @@ export class NewComponent implements OnInit {
           state = data.state
         }
         this.genForm(ssnid, name, age, dateOfJoining, roomType, address, city, state)
+        
       })
       
     }  
@@ -61,18 +67,20 @@ export class NewComponent implements OnInit {
     
   }
 
-  genForm(ssnid, name, age, dateOfJoining, roomType, address, city, state){
+  genForm(ssnid, name, age, dateOfJoining, roomType, address, city, state){    
     this.newPatient = this.formBuilder.group({
       'ssnid': [ssnid, [Validators.required]],
       'name': [name, Validators.required],
       'age': [age, [Validators.required]],
-      'dateOfJoining': [dateOfJoining, [Validators.required]],
+      'dateOfJoining': new FormControl( new Date(dateOfJoining)),
       'roomType': [roomType, [Validators.required]],
       'address': [address, [Validators.required]],
       'city': [city, [Validators.required]],
       'state': [state, [Validators.required]],
     });
+    console.log(this.newPatient.get('dateOfJoining').value)
     this.loading = false
+
   }
   createdPatient(message){
     const dialogConfig = new MatDialogConfig()
