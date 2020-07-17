@@ -1,5 +1,51 @@
-.sidebarWrap{
-    width: 200px;
-    height: 100%;
-    color: #ece5e5;
+.sidebarWrap {
+  width: 200px;
+  height: 100%;
+  color: #ece5e5;
+  text-align: center;
+  margin-top: 2em;
+
+  .title {
+    font-size: 32px;
+    padding: unset;
+    margin: unset;
+    line-height: 32px;
+  }
+  .sub {
+    font-size: 18px;
+    padding: unset;
+  }
+  .nav {
+    margin-top: 4em;
+    .navUl {
+      width: 100%;
+      list-style: none;
+      padding: unset;
+      .navLi {
+        font-size: 16px;
+        line-height: 25px;
+        padding-top: 0.8em;
+        padding-bottom: 0.8em;
+        margin-top: 0.2em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        background-color: #000000;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.NavActive {
+  background: #673ab7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #512da8,
+    #673ab7
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #512da8,
+    #673ab7
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

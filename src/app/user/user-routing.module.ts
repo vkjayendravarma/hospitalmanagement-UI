@@ -9,14 +9,9 @@ import { InventoryComponent } from './pharmacy/inventory/inventory.component';
 import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.component';
 import { EditpatientComponent } from './frontdesk/editpatient/editpatient.component';
 
-const routes: Routes=[
+const routes: Routes=[  
   {
-    path: '',
-    redirectTo: 'frontdesk',
-    pathMatch: 'full'
-  },
-  {
-    path: 'frontdesk',
+    path: 'frontdesk/dashboard',
     component: FrontdeskComponent,    
   },
   {
@@ -28,14 +23,14 @@ const routes: Routes=[
     component: EditpatientComponent
   },
   {
-    path: 'lab',
+    path: 'lab/dashboard',
     component: LabComponent
   },{
     path: 'lab/inventory',
     component: LabInventoryComponent
   },
   {
-    path: 'pharmacy',
+    path: 'pharmacy/dashboard',
     component: PharmacyComponent
   },{
     path: 'pharmacy/inventory',
@@ -46,9 +41,6 @@ const routes: Routes=[
     component: AdminComponent
   }
 ]
-
-
-
 @NgModule({
   declarations: [],
   imports: [
@@ -56,4 +48,4 @@ const routes: Routes=[
   ],
   exports: [RouterModule]
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

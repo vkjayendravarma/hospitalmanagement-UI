@@ -4,9 +4,9 @@
         <h2 class="sub">Hospitals</h2>
     </div>
     <div class="nav">
-        <ul>
-            <li>HOME</li>
-            <li>LOGOUT</li>
+        <ul class="navUl" >
+            <li class="navLi" [routerLink]="[item.path]" routerLinkActive="NavActive" *ngFor="let item of sidebarItem" >{{item.name}} </li>
+            <li class="navLi" (click)="logout()" >Logout</li>
         </ul>
     </div>
 </div>

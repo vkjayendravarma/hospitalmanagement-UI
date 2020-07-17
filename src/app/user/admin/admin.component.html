@@ -3,40 +3,52 @@
         <h1 class="titlePrimary displayInline">New User</h1>        
     </section>
     <section class="addNewUser">
-        <form class="userForm" novalidate>
+        <form class="userForm" [formGroup]="newUser" novalidate (submit)="createUser(newUser.value)">
             <div class="row">
                 <div class="col-6">
                     <mat-form-field class="formControl">
                         <mat-label>Name</mat-label>
-                        <input matInput type="text" class="formControl">
+                        <input matInput type="text" formControlName="name" class="formControl">
+                        <mat-error *ngIf="!newUser.controls['name'].valid && newUser.controls['name'].touched">
+                            Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-6">
                     <mat-form-field class="formControl">
                         <mat-label>Email ID</mat-label>
-                        <input matInput type="email" class="formControl">
+                        <input matInput type="email" formControlName="email" class="formControl">
+                        <mat-error *ngIf="!newUser.controls['email'].valid && newUser.controls['email'].touched">
+                            Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-6">
                     <mat-form-field class="formControl">
                         <mat-label>Password</mat-label>
-                        <input matInput type="password" class="formControl">
+                        <input matInput type="password" formControlName="password" class="formControl">
+                        <mat-error *ngIf="!newUser.controls['password'].valid && newUser.controls['password'].touched">
+                            Required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-3">
                     <mat-form-field >
-                        <mat-label>Select Access Level</mat-label>
-                        <mat-select [(value)]="selected">
+                        <mat-label>Select Department</mat-label>
+                        <mat-select [(value)]="selected" formControlName="dept">
                           <mat-option>None</mat-option>
-                          <mat-option value="1">Admin</mat-option>
-                          <mat-option value="2">Receptionist</mat-option>
-                          <mat-option value="3">Pharmacy</mat-option>
-                          <mat-option value="4">Lab Incharge</mat-option>
+                          <mat-option value="HMAD">Admin</mat-option>
+                          <mat-option value="HMFD">Receptionist</mat-option>
+                          <mat-option value="HMPD">Pharmacy</mat-option>
+                          <mat-option value="HMLD">Lab Incharge</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="!newUser.controls['dept'].valid && newUser.controls['dept'].touched">
+                            Required
+                        </mat-error>
                       </mat-form-field>
                 </div>
                 <div class="col-3">
-                    <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit ">Add
+                    <button mat-raised-button type="submit" [disabled]="!newUser.valid" color="primary" class="btnPrimary btnSubmit ">Add
                         User</button>
                 </div>
             </div>
