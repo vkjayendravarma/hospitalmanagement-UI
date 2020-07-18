@@ -62,7 +62,7 @@ export class InventoryComponent implements OnInit {
   addSku(qy, id){
     let qty = new FormData
     qty.append('quantity', this.sku.get('quantity').value)
-    console.log(qty);   
+    console.log(qty["quantity"]);   
     this.pharmaserv.addSku(id,qty).subscribe(res=>{
       console.log(res);      
       this.sku.reset()

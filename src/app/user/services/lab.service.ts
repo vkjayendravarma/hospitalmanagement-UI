@@ -25,10 +25,10 @@ export class LabService {
     return this.http.post(`${environment.api}/lab/inventory/manageinventory`, newTest,this.httpOptionsLogin)
   }
   getPatientData(patientId): Observable<any>{
-    return this.http.get(`${environment.api}/lab/patient/getpatientdata/${patientId}`,this.httpOptionsLogin)
+    return this.http.get(`${environment.api}/lab/patient/getpatientdata?patientId=${patientId}`,this.httpOptionsLogin)
   }
 
   newInvoice(patientId, items): Observable <any>{
-    return this.http.post(`${environment.api}/lab/patient/newinvoice/${patientId}`, {items: items},this.httpOptionsLogin)
+    return this.http.post(`${environment.api}/lab/patient/newinvoice?patientId=${patientId}`, {items: items},this.httpOptionsLogin)
   }
 }

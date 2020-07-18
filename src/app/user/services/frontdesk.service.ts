@@ -8,9 +8,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class FrontdeskService {
-  httpOptionsLogin = {
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Authorization': window.localStorage.getItem('token')
+  //   })
+  // }
+  httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       'Authorization': window.localStorage.getItem('token')
     })
   }
@@ -18,23 +23,26 @@ export class FrontdeskService {
   constructor(private http: HttpClient) { }
 
   newPatient(data):Observable<any>{
-    return this.http.post(`${environment.api}/reception/patients/new`, data ,this.httpOptionsLogin)
+   console.log(data);
+   
+    return this.http.post(`${environment.api}/reception/patients/new`,data, this.httpOptions)
   }
   allPatients():Observable <any>{
-    return this.http.get(`${environment.api}/reception/patients`,this.httpOptionsLogin)
+    return this.http.get(`${environment.api}/reception/patients`, this.httpOptions)
   }
   patientInfo(patientID): Observable<any>{
-    return this.http.get(`${environment.api}/reception/patients/individual/${patientID}`,this.httpOptionsLogin)
+    console.log(patientID);    
+    return this.http.get(`${environment.api}/reception/patients/individual?patientId=${patientID}`,this.httpOptions)
   }
 
   updatePatient(patientId, data): Observable <any>{
-    return this.http.post(`${environment.api}/reception/patients/individual/${patientId}`, data,this.httpOptionsLogin)
+    return this.http.post(`${environment.api}/reception/patients/individual?patientId=${patientId}`,data,this.httpOptions)
   }
   
   dischargePatient(patientId): Observable <any>{
-    return this.http.put(`${environment.api}/reception/patients/individual/${patientId}`, null,this.httpOptionsLogin)
+    return this.http.put(`${environment.api}/reception/patients/individual?patientId=${patientId}`, null,this.httpOptions)
   }
   deletePatient(patientId): Observable <any> {
-    return this.http.delete(`${environment.api}/reception/patients/individual/${patientId}`,this.httpOptionsLogin)
+    return this.http.delete(`${environment.api}/reception/patients/individual?patientId=${patientId}`,this.httpOptions)
   }
 }

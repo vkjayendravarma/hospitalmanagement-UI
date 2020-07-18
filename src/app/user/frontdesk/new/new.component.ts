@@ -47,6 +47,8 @@ export class NewComponent implements OnInit {
       this.frontDeskSerivice.patientInfo(this.patientId).subscribe(res => {
         if(res.success){
           let data = res.res
+          console.log(data);
+          
           ssnid = data.ssnid
           name = data.name
           age = data.age
@@ -78,7 +80,6 @@ export class NewComponent implements OnInit {
       'city': [city, [Validators.required]],
       'state': [state, [Validators.required]],
     });
-    console.log(this.newPatient.get('dateOfJoining').value)
     this.loading = false
 
   }
@@ -89,29 +90,16 @@ export class NewComponent implements OnInit {
     dialogConfig.data = message
     this.patientDialog.open(DeletePatientComponent, dialogConfig)
   }
-  onSubmit(post) {
-    console.log(post);
-    let patient = new FormData()
-    patient.append('ssnid',this.newPatient.get('ssnid').value)
-    patient.append('name',this.newPatient.get('name').value)
-    patient.append('age',this.newPatient.get('age').value)
-    patient.append('dateOfJoining',this.newPatient.get('dateOfJoining').value)
-    patient.append('roomType',this.newPatient.get('roomType').value)
-    patient.append('address',this.newPatient.get('address').value)
-    patient.append('city',this.newPatient.get('city').value)
-    patient.append('state',this.newPatient.get('state').value)
-    
-    if(this.patientId){
-      this.frontDeskSerivice.updatePatient(this.patientId, patient).subscribe(res => {
+  onSubmit(post) {    
+    if(this.patientId){      
+      this.frontDeskSerivice.updatePatient(this.patientId, post).subscribe(res => {
         console.log(res);
         this.createdPatient(`Patient Updated`)
-        this.router.navigateByUrl('/user/frontdesk')
-         
+        this.router.navigateByUrl('user/frontdesk/dashboard')         
       })
       return
-    }
-    
-    this.frontDeskSerivice.newPatient(patient).subscribe((res)=>{
+    }    
+    this.frontDeskSerivice.newPatient(post).subscribe((res)=>{
       if(res.success){
         console.log(res.res);
         this.newPatient.reset()        

@@ -30,7 +30,7 @@ export class ViewPatientComponent implements OnInit {
     this.frontdeskSer.patientInfo(patientID).subscribe((res) => {
       this.loading = false
       this.data = res.res
-      console.log(this.data);
+      console.log(res);
       
     })
   }
