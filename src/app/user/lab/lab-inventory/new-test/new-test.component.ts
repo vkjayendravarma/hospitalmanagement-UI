@@ -26,10 +26,8 @@ export class NewTestComponent implements OnInit {
   }
   submit(data){
     console.log(data);
-    let item = new FormData
-    item.append('name', data.name)
-    item.append('price',data.price)
-    this.lab.newTest(item).subscribe((res)=>{
+   
+    this.lab.newTest(data).subscribe((res)=>{
       if(res){
         this.dialogRef.close()
       }

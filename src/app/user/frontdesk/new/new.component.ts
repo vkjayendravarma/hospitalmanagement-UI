@@ -90,7 +90,8 @@ export class NewComponent implements OnInit {
     dialogConfig.data = message
     this.patientDialog.open(DeletePatientComponent, dialogConfig)
   }
-  onSubmit(post) {    
+  onSubmit(post) {  
+   
     if(this.patientId){      
       this.frontDeskSerivice.updatePatient(this.patientId, post).subscribe(res => {
         console.log(res);

@@ -28,7 +28,7 @@
                     <td> {{item.quantity}} </td>
                     <td> {{item.price}} </td>
                     <td>
-                        <form action="" [formGroup]="sku" (submit)='addSku(send.value, item._id.$oid)'>
+                        <form [formGroup]="sku" (submit)='addSku(send.value, item._id.$oid)'>
                             <mat-form-field style="width: 20%;">
                                 <mat-label>Qty</mat-label>
                                 <input type="number" matInput formControlName="quantity" #send>

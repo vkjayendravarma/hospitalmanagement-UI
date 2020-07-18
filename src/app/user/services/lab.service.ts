@@ -8,7 +8,7 @@ import { env } from 'process';
   providedIn: 'root'
 })
 export class LabService {
-  httpOptionsLogin = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': window.localStorage.getItem('token')
@@ -18,17 +18,17 @@ export class LabService {
   constructor(private http: HttpClient) { }
 
   getInventory(): Observable <any>{
-    return this.http.get(`${environment.api}/lab/inventory/manageinventory`,this.httpOptionsLogin)
+    return this.http.get(`${environment.api}/lab/inventory/manageinventory`,this.httpOptions)
   }
 
   newTest(newTest): Observable <any>{
-    return this.http.post(`${environment.api}/lab/inventory/manageinventory`, newTest,this.httpOptionsLogin)
+    return this.http.post(`${environment.api}/lab/inventory/manageinventory`, newTest,this.httpOptions)
   }
   getPatientData(patientId): Observable<any>{
-    return this.http.get(`${environment.api}/lab/patient/getpatientdata?patientId=${patientId}`,this.httpOptionsLogin)
+    return this.http.get(`${environment.api}/lab/patient/getpatientdata/${patientId}`,this.httpOptions)
   }
 
   newInvoice(patientId, items): Observable <any>{
-    return this.http.post(`${environment.api}/lab/patient/newinvoice?patientId=${patientId}`, {items: items},this.httpOptionsLogin)
+    return this.http.post(`${environment.api}/lab/patient/newinvoice/${patientId}`, {items: items},this.httpOptions)
   }
 }

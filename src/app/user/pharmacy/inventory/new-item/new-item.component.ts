@@ -28,11 +28,8 @@ export class NewItemComponent implements OnInit {
   }
   submit(data){
     console.log(data);
-    let item = new FormData
-    item.append('name', data.name)
-    item.append('quantity', data.quantity)
-    item.append('price',data.price)
-    this.pharserv.newInventoryItem(item).subscribe((res)=>{
+ 
+    this.pharserv.newInventoryItem(data).subscribe((res)=>{
       if(res){
         this.dialogRef.close()
       }

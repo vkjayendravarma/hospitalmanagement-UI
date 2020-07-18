@@ -24,12 +24,12 @@ export class AdminComponent implements OnInit {
   }
 
   createUser(user){
-    let data = new FormData()
-    data.append('name', user.name)
-    data.append('email', user.email)
-    data.append('password', user.password)
-    data.append('dept', user.dept)
-    this.adminService.newUser(data).subscribe(res=>{
+    // let data = new FormData()
+    // data.append('name', user.name)
+    // data.append('email', user.email)
+    // data.append('password', user.password)
+    // data.append('dept', user.dept)
+    this.adminService.newUser(user).subscribe(res=>{
       console.log(res);
       this.newUser.reset()
       this.message.open(res.message,'close',{
