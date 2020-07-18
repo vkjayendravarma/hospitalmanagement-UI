@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './user/layout/layout.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: LayoutComponent,
+    canActivateChild: [AuthGuard],
     children: [{
       path: '',
       loadChildren: './user/user.module#UserModule'
