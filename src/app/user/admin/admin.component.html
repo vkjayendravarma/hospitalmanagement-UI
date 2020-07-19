@@ -32,8 +32,8 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-3">
-                    <mat-form-field >
+                <div class="col-4">
+                    <mat-form-field class="formControl" >
                         <mat-label>Select Department</mat-label>
                         <mat-select [(value)]="selected" formControlName="dept">
                           <mat-option>None</mat-option>
@@ -47,10 +47,11 @@
                         </mat-error>
                       </mat-form-field>
                 </div>
-                <div class="col-3">
+                <div class="col-1">
                     <button mat-raised-button type="submit" [disabled]="!newUser.valid" color="primary" class="btnPrimary btnSubmit ">Add
                         User</button>
                 </div>
+                <div class="col-1"><mat-spinner diameter="35" *ngIf="loading"  class="spinner"></mat-spinner></div>
             </div>
         </form>
     </section>

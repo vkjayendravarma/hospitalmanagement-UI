@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../services/admin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -11,8 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AdminComponent implements OnInit {
   selected
   newUser: FormGroup
+  loading
 
-  constructor(private formBuilder: FormBuilder, private adminService: AdminService, private message: MatSnackBar) { }
+  constructor(private formBuilder: FormBuilder, private adminService: AdminService, private message: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.newUser = this.formBuilder.group({
@@ -24,19 +26,29 @@ export class AdminComponent implements OnInit {
   }
 
   createUser(user){
-    // let data = new FormData()
-    // data.append('name', user.name)
-    // data.append('email', user.email)
-    // data.append('password', user.password)
-    // data.append('dept', user.dept)
+    this.loading = true
+
     this.adminService.newUser(user).subscribe(res=>{
-      console.log(res);
+      this.loading = false
       this.newUser.reset()
       this.message.open(res.message,'close',{
         duration: 2000
       })
       
-    })
+    },(err)=>{   
+      this.loading = false         
+      if(err.status == 401){
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
+    } )
   }
 
 }

@@ -8,34 +8,65 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class FrontdeskService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      'Authorization': window.localStorage.getItem('token')
-    })
-  }
+
+ 
   
   constructor(private http: HttpClient) { }
 
   newPatient(data):Observable<any>{   
-    return this.http.post(`${environment.api}/reception/patients/new`,data, this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.post(`${environment.api}/reception/patients/new`,data, httpOptions)
   }
   allPatients():Observable <any>{
-    return this.http.get(`${environment.api}/reception/patients`, this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.get(`${environment.api}/reception/patients`, httpOptions)
   }
   patientInfo(patientID): Observable<any>{
-    console.log(patientID);    
-    return this.http.get(`${environment.api}/reception/patients/individual/${patientID}`,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }    
+    return this.http.get(`${environment.api}/reception/patients/individual/${patientID}`,httpOptions)
   }
 
   updatePatient(patientId, data): Observable <any>{
-    return this.http.post(`${environment.api}/reception/patients/individual/${patientId}`,data,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.post(`${environment.api}/reception/patients/individual/${patientId}`,data,httpOptions)
   }
   
   dischargePatient(patientId): Observable <any>{
-    return this.http.put(`${environment.api}/reception/patients/individual/${patientId}`, null,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.put(`${environment.api}/reception/patients/individual/${patientId}`, null,httpOptions)
   }
   deletePatient(patientId): Observable <any> {
-    return this.http.delete(`${environment.api}/reception/patients/individual/${patientId}`,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.delete(`${environment.api}/reception/patients/individual/${patientId}`,httpOptions)
   }
 }

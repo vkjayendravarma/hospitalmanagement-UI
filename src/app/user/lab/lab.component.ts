@@ -4,6 +4,7 @@ import { LabService } from '../services/lab.service';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { RecordsComponent } from '../pharmacy/records/records.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lab',
@@ -26,7 +27,8 @@ export class LabComponent implements OnInit {
   patientDataLoading
   invoiceLoading
 
-  constructor(private labservice: LabService, private patientDialog: MatDialog, private formBuilder: FormBuilder, private message: MatSnackBar
+  constructor(private labservice: LabService, private patientDialog: MatDialog, private formBuilder: FormBuilder,private message: MatSnackBar,
+    private router: Router
 
     ){}
 
@@ -52,6 +54,20 @@ export class LabComponent implements OnInit {
         duration: 2000,
       });
       this.patientData = null      
+    },(err)=>{    
+      this.patientDataLoading = false        
+      if(err.status == 401){
+        window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     })
   }
 
@@ -66,7 +82,6 @@ export class LabComponent implements OnInit {
   }
 
   genInvoice(patientID){
-    console.log(this.invoiceItems);    
     if(this.invoiceItems.length > 0){
       this.invoiceLoading = true
       this.labservice.newInvoice(patientID, this.invoiceItems).subscribe(res=>{
@@ -77,6 +92,19 @@ export class LabComponent implements OnInit {
         this.patientData = null
         this.invoiceItems = []
         this.displayItems = []
+      },(err)=>{            
+        if(err.status == 401){
+          window.localStorage.clear()
+          this.message.open("Session expired",'close',{
+            duration: 2000
+          })
+          this.router.navigateByUrl('login')
+          return
+        }
+        this.message.open(err.error.message,'close',{
+          duration: 2000
+        })    
+              
       })
     }else {
       this.message.open("No items", "Close", {
@@ -129,6 +157,19 @@ export class LabComponent implements OnInit {
       this.filteredOptions = this.options
 
           
+    },(err)=>{            
+      if(err.status == 401){
+        window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     })
   }
 }

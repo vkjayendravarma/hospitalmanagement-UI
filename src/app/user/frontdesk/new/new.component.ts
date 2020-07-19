@@ -4,6 +4,7 @@ import { FrontdeskService } from '../../services/frontdesk.service';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { DeletePatientComponent } from '../delete-patient/delete-patient.component';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -21,10 +22,12 @@ export class NewComponent implements OnInit {
   newPatient: FormGroup;
   loading
   dateOfJoining = null
+  submitLoading
 
   post: any = '';
 
-  constructor(private formBuilder: FormBuilder, private frontDeskSerivice:FrontdeskService, private patientDialog: MatDialog, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private frontDeskSerivice:FrontdeskService, private patientDialog: MatDialog,private message: MatSnackBar,
+    private router: Router) {}
 
 
 
@@ -60,6 +63,20 @@ export class NewComponent implements OnInit {
         }
         this.genForm(ssnid, name, age, dateOfJoining, roomType, address, city, state)
         
+      },(err)=>{ 
+        
+        if(err.status == 401){
+          window.localStorage.clear()
+          this.message.open("Session expired",'close',{
+            duration: 2000
+          })
+          this.router.navigateByUrl('login')
+          return
+        }
+        this.message.open(err.error.message,'close',{
+          duration: 2000
+        })    
+              
       })
       
     }  
@@ -90,17 +107,33 @@ export class NewComponent implements OnInit {
     dialogConfig.data = message
     this.patientDialog.open(DeletePatientComponent, dialogConfig)
   }
-  onSubmit(post) {  
+  onSubmit(post) { 
+    this.submitLoading =true 
    
     if(this.patientId){      
       this.frontDeskSerivice.updatePatient(this.patientId, post).subscribe(res => {
-        console.log(res);
+        this.submitLoading =false
         this.createdPatient(`Patient Updated`)
         this.router.navigateByUrl('user/frontdesk/dashboard')         
+      },(err)=>{    
+        this.submitLoading =false        
+        if(err.status == 401){
+          window.localStorage.clear()
+          this.message.open("Session expired",'close',{
+            duration: 2000
+          })
+          this.router.navigateByUrl('login')
+          return
+        }
+        this.message.open(err.error.message,'close',{
+          duration: 2000
+        })    
+              
       })
       return
     }    
     this.frontDeskSerivice.newPatient(post).subscribe((res)=>{
+      this.submitLoading =false
       if(res.success){
         console.log(res.res);
         this.newPatient.reset()        
@@ -109,6 +142,20 @@ export class NewComponent implements OnInit {
         console.log("else" + res.res);
         this.createdPatient(` ${res.message} `)  
       }
+    },(err)=>{    
+      this.submitLoading =false        
+      if(err.status == 401){
+        window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     })
   }
 }

@@ -4,6 +4,7 @@ import { NewItemComponent } from './new-item/new-item.component';
 import { PharmacyService } from '../../services/pharmacy.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,8 +18,10 @@ export class InventoryComponent implements OnInit {
   filterData
   sku: FormGroup
   send
+  loading
 
-  constructor(private inventoryDialog: MatDialog, private pharmaserv: PharmacyService, private formbuid: FormBuilder, private message: MatSnackBar) { }
+  constructor(private inventoryDialog: MatDialog, private pharmaserv: PharmacyService, private formbuid: FormBuilder, private message: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getInventory()
@@ -38,10 +41,26 @@ export class InventoryComponent implements OnInit {
   }
 
   getInventory(){
+    this.loading = true
     this.pharmaserv.getInventory().subscribe(res=>{
+      this.loading = false
       this.data = res.res
       this.filterData = this.data
       console.log(this.data);      
+    },(err)=>{     
+      this.loading = false       
+      if(err.status == 401){
+        window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     })
   }
   filterMed(keyWord){
@@ -56,18 +75,32 @@ export class InventoryComponent implements OnInit {
         }
       });      
     }
-    console.log(this.filterData);
   }
 
-  addSku(qty, id){    
-    console.log(qty.quantity);   
+  addSku(qty, id){ 
+    this.loading = true
+  
     this.pharmaserv.addSku(id,qty).subscribe(res=>{
-      console.log(res);      
+      this.loading = false
       this.sku.reset()
       this.getInventory()
       this.message.open("New stock in inventory", "Close", {
         duration: 2000,
       });
+    },(err)=>{    
+      this.loading = false        
+      if(err.status == 401){
+        window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     })
   }
 

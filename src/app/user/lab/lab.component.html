@@ -11,7 +11,7 @@
                 <div class="col-8">
                     <mat-form-field class="formControl">
                         <mat-label>Patient ID</mat-label>
-                        <input matInput type="text" class="formControl" #patientId>
+                        <input matInput type="number" class="formControl" #patientId>
                     </mat-form-field>
                 </div>
                 <div class="col-2">
@@ -29,7 +29,7 @@
                 <div class="col-6">Age {{patientData.age}}</div>
                 <div class="col-6">Address {{patientData.address}}</div>
             </div>
-            <button mat-raised-button (click)='viewPatient()' class="btnPrimary btnSubmit">View Record</button>
+            <button mat-raised-button (click)='viewPatient()' class="btnPrimary btnSubmit viewRecord">View Record</button>
             <div class="newInvoice">
                 <h2>New Invoice</h2>
                 <form>
@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <div class="col-7">
                                         <mat-form-field style="width: 100%;">
-                                            <input type="text" placeholder="Medicine Name" aria-label="Number" matInput
+                                            <input type="text" placeholder="Test Name" aria-label="Number" matInput
                                                 formControlName="name" [matAutocomplete]="auto"
                                                 (keyup)='filterOptions()'>
                                             <mat-autocomplete #auto="matAutocomplete">

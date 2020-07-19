@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup
   message
+  loading
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,11 +24,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(data){
+    this.loading= true
     let cred = new FormData()
     cred.append('email', data.email)
     cred.append('password', data.password)
     this.authService.login(cred).subscribe(res => {
       if(res.success){
+        this.loading = false
         window.localStorage.setItem('token', res.token)
         this.message = "login successful"
 
@@ -39,7 +42,8 @@ export class LoginComponent implements OnInit {
         else  setTimeout(() => {this.router.navigateByUrl("user/lab/dashboard")}, 300);   
       }
     }, (err) => {
-      this.message = err.message
+      this.loading = false
+      this.message = err.error.message
     })
 
   }

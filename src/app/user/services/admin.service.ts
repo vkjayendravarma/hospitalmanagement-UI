@@ -7,19 +7,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': window.localStorage.getItem('token')
-    })
-  }
 
   constructor(private http:HttpClient) { 
     
   }
 
   newUser(data): Observable<any>{
-    return this.http.post(`${environment.api}/register`, data, this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.post(`${environment.api}/register`, data,httpOptions)
   }
 
 }

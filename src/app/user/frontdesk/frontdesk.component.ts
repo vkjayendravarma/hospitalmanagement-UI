@@ -3,6 +3,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewPatientComponent } from './view-patient/view-patient.component';
 import { DeletePatientComponent } from './delete-patient/delete-patient.component';
 import { FrontdeskService } from '../services/frontdesk.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-frontdesk',
@@ -17,7 +19,8 @@ export class FrontdeskComponent implements OnInit {
 
   constructor(
     private patientDialog: MatDialog,
-    private frontdeskService: FrontdeskService
+    private frontdeskService: FrontdeskService,private message: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,10 +30,22 @@ export class FrontdeskComponent implements OnInit {
   allPatients() {
     this.loading =true
     this.frontdeskService.allPatients().subscribe((res) => {
-      console.log(res);
       this.loading=false
       this.patientsData = res.res;
       this.filterData = this.patientsData;
+    },(err)=>{                       
+      if(err.status == 401){
+        window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     });
   }
 
@@ -92,6 +107,19 @@ export class FrontdeskComponent implements OnInit {
           this.patientDialog.open(DeletePatientComponent, dialogConfig);
           this.allPatients()
         }
+      },(err)=>{            
+        if(err.status == 401){
+          window.localStorage.clear()
+          this.message.open("Session expired",'close',{
+            duration: 2000
+          })
+          this.router.navigateByUrl('login')
+          return
+        }
+        this.message.open(err.error.message,'close',{
+          duration: 2000
+        })    
+              
       })
     }
 

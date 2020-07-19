@@ -8,27 +8,46 @@ import { env } from 'process';
   providedIn: 'root'
 })
 export class LabService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': window.localStorage.getItem('token')
-    })
-  }
+
 
   constructor(private http: HttpClient) { }
 
   getInventory(): Observable <any>{
-    return this.http.get(`${environment.api}/lab/inventory/manageinventory`,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.get(`${environment.api}/lab/inventory/manageinventory`,httpOptions)
   }
 
   newTest(newTest): Observable <any>{
-    return this.http.post(`${environment.api}/lab/inventory/manageinventory`, newTest,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.post(`${environment.api}/lab/inventory/manageinventory`, newTest,httpOptions)
   }
   getPatientData(patientId): Observable<any>{
-    return this.http.get(`${environment.api}/lab/patient/getpatientdata/${patientId}`,this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.get(`${environment.api}/lab/patient/getpatientdata/${patientId}`,httpOptions)
   }
 
   newInvoice(patientId, items): Observable <any>{
-    return this.http.post(`${environment.api}/lab/patient/newinvoice/${patientId}`, {items: items},this.httpOptions)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': window.localStorage.getItem('token')
+      })
+    }
+    return this.http.post(`${environment.api}/lab/patient/newinvoice/${patientId}`, {items: items},httpOptions)
   }
 }

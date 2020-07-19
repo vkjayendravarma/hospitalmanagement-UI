@@ -6,10 +6,11 @@
     </section>
 
     <div class="inverntory">
-        <mat-form-field style="width: 80%;">
+        <mat-form-field class="searchField" >
             <mat-label>Search Medicine</mat-label>
             <input type="text" matInput #item (keyup)="filterMed(item.value)">
         </mat-form-field>
+        <mat-spinner diameter="35" *ngIf="loading" class="spinner"></mat-spinner>
 
         <table class="table ">
             <thead class="table"> 

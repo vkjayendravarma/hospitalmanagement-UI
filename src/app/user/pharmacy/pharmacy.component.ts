@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RecordsComponent } from './records/records.component';
 import { PharmacyService } from '../services/pharmacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 export interface invoiceItems{
   id: string,
@@ -38,7 +39,8 @@ export class PharmacyComponent implements OnInit {
     private patientDialog: MatDialog,
     private pharmaservice: PharmacyService,
     private formBuilder: FormBuilder,
-    private message: MatSnackBar
+    private message: MatSnackBar,
+    private router: Router
   ) {}
 
 
@@ -67,7 +69,21 @@ export class PharmacyComponent implements OnInit {
         });
       }
       
-    });
+    },(err)=>{            
+      if(err.status == 401){
+        
+          window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
+    })
   }
 
   viewPatient() {
@@ -83,9 +99,9 @@ export class PharmacyComponent implements OnInit {
 
   genInvoice(patientID){
     console.log(this.invoiceItems);  
-    this.invoiceLoading = true 
     
     if(this.invoiceItems.length > 0){
+      this.invoiceLoading = true 
       this.pharmaservice.newInvoice({ patienId: patientID, items: {date: Date,  items: this.invoiceItems } }).subscribe(res=>{
         this.invoiceLoading = false
         if(res.success){
@@ -99,6 +115,19 @@ export class PharmacyComponent implements OnInit {
         }
       
         
+      },(err)=>{            
+        if(err.status == 401){
+          window.localStorage.clear()
+          this.message.open("Session expired",'close',{
+            duration: 2000
+          })
+          this.router.navigateByUrl('login')
+          return
+        }
+        this.message.open(err.error.message,'close',{
+          duration: 2000
+        })    
+              
       })
     }else {
       this.message.open("No items selected", "Close", {
@@ -171,8 +200,19 @@ export class PharmacyComponent implements OnInit {
         this.options.push(a)
       });
       this.filteredOptions = this.options
-
-          
+    },(err)=>{            
+      if(err.status == 401){
+         window.localStorage.clear()
+        this.message.open("Session expired",'close',{
+          duration: 2000
+        })
+        this.router.navigateByUrl('login')
+        return
+      }
+      this.message.open(err.error.message,'close',{
+        duration: 2000
+      })    
+            
     })
   }
 }

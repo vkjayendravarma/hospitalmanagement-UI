@@ -97,15 +97,21 @@
                 </div>
 
             </div>
-            <div *ngIf="patientId; else createPatient">
-                <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit"
-                    [disabled]="!newPatient.valid">Update</button>
+            <div class="row">
+                <div class="col-1">
+                    <div *ngIf="patientId; else createPatient">
+                        <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit"
+                            [disabled]="!newPatient.valid">Update</button>
+                    </div>
+        
+                    <ng-template #createPatient>
+                        <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit"
+                            [disabled]="!newPatient.valid">Create</button>
+                    </ng-template>
+                </div>
+                <div class="col-1"><mat-spinner diameter="35" *ngIf="submitLoading"  class="spinnerSubmit"></mat-spinner></div>
             </div>
-
-            <ng-template #createPatient>
-                <button mat-raised-button type="submit" color="primary" class="btnPrimary btnSubmit"
-                    [disabled]="!newPatient.valid">Create</button>
-            </ng-template>
+            
         </form>
 
 
