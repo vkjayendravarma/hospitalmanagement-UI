@@ -6,12 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PharmacyService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': window.localStorage.getItem('token')
-    })
-  }
+
 
   constructor(private htttp: HttpClient) { }
 

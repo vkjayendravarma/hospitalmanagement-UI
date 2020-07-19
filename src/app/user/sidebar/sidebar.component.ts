@@ -16,6 +16,9 @@ export class SidebarComponent implements OnInit {
       path: 'frontdesk/dashboard',
       name: 'Front Desk'
     },{
+      path: 'frontdesk/new',
+      name: 'New patient'
+    },{
       path: 'pharmacy/dashboard',
       name: 'Pahrmacy'
     }, {
@@ -33,6 +36,9 @@ export class SidebarComponent implements OnInit {
     {
       path: 'frontdesk/dashboard',
       name: 'Dashbord'
+    },{
+      path: 'frontdesk/new',
+      name: 'New patient'
     }
   ]
   pharmacy = [
