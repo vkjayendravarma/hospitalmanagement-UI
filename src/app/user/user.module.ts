@@ -31,10 +31,11 @@ import { MessageComponent } from './message/message.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { EditpatientComponent } from './frontdesk/editpatient/editpatient.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { Brake404Component } from './brake404/brake404.component';
 
 
 @NgModule({
-  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent, ViewPatientComponent, DeletePatientComponent, NewItemComponent, RecordsComponent, NewTestComponent, MessageComponent, EditpatientComponent],
+  declarations: [SidebarComponent, LayoutComponent, FrontdeskComponent, AdminComponent, PharmacyComponent, LabComponent, NewComponent, InventoryComponent, LabInventoryComponent, ViewPatientComponent, DeletePatientComponent, NewItemComponent, RecordsComponent, NewTestComponent, MessageComponent, EditpatientComponent, Brake404Component],
   imports: [
     CommonModule,
     UserRoutingModule,

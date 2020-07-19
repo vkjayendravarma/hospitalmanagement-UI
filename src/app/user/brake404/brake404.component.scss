@@ -1,0 +1,25 @@
+@import "../../../globalStyles/fonts";
+.pagenotfound {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+ 
+  .section404 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    
+    .title{
+        font-size: 144px;
+        line-height: 144px;
+        font-family: montserratRegular !important;
+
+    }
+    .subtitle{
+        font-size: 32px;
+        font-family: montserratRegular !important;
+    }
+  }
+}

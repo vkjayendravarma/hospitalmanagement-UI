@@ -8,37 +8,58 @@ import { NewComponent } from './frontdesk/new/new.component';
 import { InventoryComponent } from './pharmacy/inventory/inventory.component';
 import { LabInventoryComponent } from './lab/lab-inventory/lab-inventory.component';
 import { EditpatientComponent } from './frontdesk/editpatient/editpatient.component';
+import { Brake404Component } from './brake404/brake404.component';
+import { AdGuard } from '../guards/ad.guard';
+import { FdGuard } from '../guards/fd.guard';
+import { LdGuard } from '../guards/ld.guard';
+import { PdGuard } from '../guards/pd.guard';
 
 const routes: Routes=[  
   {
     path: 'frontdesk/dashboard',
-    component: FrontdeskComponent,    
+    component: FrontdeskComponent,
+    canActivate: [FdGuard]    
   },
   {
     path: 'frontdesk/new',
-    component: NewComponent
+    component: NewComponent,
+    canActivate: [FdGuard]
   },
   {
     path: 'frontdesk/edit/:patientId',
-    component: EditpatientComponent
+    component: EditpatientComponent,
+    canActivate: [FdGuard]
   },
   {
     path: 'lab/dashboard',
-    component: LabComponent
+    component: LabComponent,
+    canActivate: [LdGuard]
   },{
     path: 'lab/inventory',
-    component: LabInventoryComponent
+    component: LabInventoryComponent,
+    canActivate: [LdGuard]
   },
   {
     path: 'pharmacy/dashboard',
-    component: PharmacyComponent
+    component: PharmacyComponent,
+    canActivate: [PdGuard]
   },{
     path: 'pharmacy/inventory',
-    component: InventoryComponent
+    component: InventoryComponent,
+    canActivate: [PdGuard]
   },
   {
     path: 'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    canActivate: [AdGuard]
+  },{
+    path: 'pagenotfound',
+    component: Brake404Component
+  },
+  {
+    path: '**',
+    redirectTo: 'pagenotfound',
+    pathMatch: 'full'
   }
 ]
 @NgModule({
